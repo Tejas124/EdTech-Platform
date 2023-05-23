@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
+//Define the Category schema
 const categorySchema = new mongoose.Schema({
     name:{
-        type:String
+        type:String,
+        required: true
     },
     description:{
         type: String
@@ -13,7 +15,7 @@ const categorySchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Course"
         }
-    ]
+    ],
 
 })
 

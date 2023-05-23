@@ -72,20 +72,30 @@ exports.categoryPageDetails = async (req, res) => {
         if(!selectedCategory){
             return res.status(404).json({
                 success: false,
-                message: ""
+                message: "Data not Found"
             })
         }
         //get courses for different category
         const differnetCategories = await Category.find({
-            _id : {$ne: categoryId},
+            _id : {$ne: categoryId}, //$ne - not equal
         })
         .populate("courses")
         .exec();
         //TODO: Get top 10 selling courses
+
+        //return response
+        res.status(200).json({
+            success:true,
+            selectedCategory,
+            differnetCategories,
+            message: "All Categories returned successfully",
+            
+
+        })
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Error in creating Rating and Review"
+            message: "Error in fetching courses"
         })
     }
 }

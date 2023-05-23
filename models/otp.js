@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const mailSender = require("../utils/mailSender");
+const emailTemplate = require("../mail/templates/emailVerificationTemplate");
 
 const otpSchema = new mongoose.Schema({
     email:{
@@ -14,11 +15,9 @@ const otpSchema = new mongoose.Schema({
     createdAt:{
         type:Date,
         default: Date.now(),
-        expires: 5*60
-    
-
+        expires: 60 * 5, //The document will be deleted automatically after 5 mins of its creation time    
     }
-})
+});
 
 
 // A function to send Email
@@ -31,9 +30,14 @@ async function sendEmail(email, otp) {
     }
 }
 
-//Pre Middleware
+//Pre Middleware - 
+// Define a post-save hook to send email after the document has been saved
 otpSchema.pre("save", async function(next){
-    await sendEmail(this.email, this.otp);
+    console.log("New Document saved to database");
+    
+    if(this.isNew) {
+        await sendEmail(this.email, this.otp);
+    }
     next();
 }) 
 

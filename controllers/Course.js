@@ -56,6 +56,7 @@ exports.createCourse = async (req, res) => {
             Category: categoryDetails._id,
             thumbnail : thumbnailImage.secure_url
         });
+        
 
         //Add the new course to User schema of instructor
         await User.findByIdAndUpdate(
@@ -133,7 +134,7 @@ exports.getCourseDetails = async (req, res ) => {
                               .populate(
                                 {
                                     path:"instructor",
-                                    path:{
+                                    populate:{
                                         path: "additionalDetails"
                                     }
                                 }
@@ -148,6 +149,7 @@ exports.getCourseDetails = async (req, res ) => {
                                     }
                                 }
                               )
+
         //validation
         if(!courseDetails) {
             return res.status(400).json({
@@ -155,6 +157,7 @@ exports.getCourseDetails = async (req, res ) => {
                 message: ""
             })
         }
+        
 
         //return response
         return res.status(200).json({

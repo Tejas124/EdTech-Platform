@@ -14,9 +14,13 @@ exports.createRating = async(req,res) => {
         })
 
         if(!courseDetails){
-            return res.status
+            return res.status(400).json({
+                success: false,
+                message: "Course Details not found"
+            })
 
         }
+        
         //check if user already reviewed the course
         const alreadyReviewed = await RatingAndReview.findOne({
             user:userId,
