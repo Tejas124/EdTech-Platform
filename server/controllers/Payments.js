@@ -80,7 +80,10 @@ exports.capturePayment = async(req, res) => {
 
         } catch (error) {
             console.log(error)
-
+            res.json({
+                success:false,
+                message:"Could not initiate order",
+            });
         }
         
     
@@ -134,6 +137,7 @@ exports.verifySignature = async (req, res) => {
                                 "Congratulations",
                                 "You have successfullu enrolled in course"
             )
+            console.log(mailResponse);
 
             return res.status(200).json({
                 success: true,
@@ -150,7 +154,8 @@ exports.verifySignature = async (req, res) => {
     else {
         return res.status(400).json({
             success:false,
-            message: error.message
+            message: 'Invalid request',
+
         })
     }
 

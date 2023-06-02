@@ -1,5 +1,6 @@
 const Profile = require("../models/Profile");
-const User = require("../models/User")
+const User = require("../models/User");
+
 
 exports.updateProfile = async(req, res) => {
     try{
@@ -49,13 +50,14 @@ exports.deleteAccount = async(req, res) => {
         //get id
         const {id} = req.user.id;
         //validation
-        const userDetails = await User.findOne(id);
+        const userDetails = await User.findById({_id: id});
         if(!userDetails){
             return res.status(400).json({
                 success: false,
                 message: "User not found"
             })
         }
+
         //delete profile
         await Profile.findByIdAndDelete({_id: userDetails.additionalDetails});
         //HW: Unenroll user from all enrolled courses

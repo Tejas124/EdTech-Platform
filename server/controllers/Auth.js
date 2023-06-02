@@ -4,6 +4,9 @@ const otpGenerator = require("otp-generator")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mailSender = require("../utils/mailSender");
+const { passwordUpdated} = require("../mail/templates/passwordUpdate")
+const Profile = require("../models/Profile");
+require("dotenv").config();
 
 //sendOTP
 exports.sendOTP = async (req, res) => {
@@ -66,9 +69,7 @@ exports.sendOTP = async (req, res) => {
 }
 
 
-
 //SignUp
-
 exports.signUp = async (req, res) => {
     try {
         //data fetch from req body
@@ -161,8 +162,8 @@ exports.signUp = async (req, res) => {
     }
 }
 
-//Login
 
+//Login
 exports.login = async (req, res) => {
     try {
         //get data from req.body
@@ -225,13 +226,17 @@ exports.login = async (req, res) => {
     }
 }
 
+
 //ChangePassword
 exports.changePassword = async (req, res) => {
     try {
-        //Fetch data from req.body
-        const {oldPassword, newPassword, confirmPassword, token} = req.body;
+        //get user data from req.user
+        const userDetails = await User.findById(req.user.id);
 
-        //validation
+        //Fetch data from req.body
+        const {oldPassword, newPassword, confirmPassword} = req.body;
+
+        //check all fields are filled
         if(!oldPassword || !newPassword || !confirmPassword){
             return res.status(400).json({
                 success:false,
@@ -239,42 +244,59 @@ exports.changePassword = async (req, res) => {
             })
         }
 
+        //validate the old password
+        const isPasswordMatch = await bcrypt.compare(
+            oldPassword,
+            userDetails.password
+        );
+        if(!isPasswordMatch){
+            //if both passwords does not match, then update the old password with newPassword
+            return res.status(401).json({
+                success : false,
+                message : "The password is incorrect"
+            })
+        }
+
+        //Match new password and confirm new password
         if(newPassword !== confirmPassword){
+            // If new password and confirm new password do not match, return a 400 (Bad Request) error
             return res.status(400).json({
                 success:false,
                 message: "New Password and confirm Password should be same"
-            })
+            });
         }
-
-        //Check if oldPassword entered by user and password already present in DB 
-        //matches or not
-        const user = await User.findOne({token : token});
-
-        const password = user.password;
-
-        if(await bcrypt.compare(password, oldPassword )){
-            //if both passwords match, then update the old password with newPassword
-
-            let hashedPaswword = await bcrypt.hash(newPassword, 10);
-
-            await User.findOneAndUpdate({password : hashedPaswword});
+        
+        //update password
+        let hashedPassword = await bcrypt.hash(newPassword, 10);
+        let updateUserDetails = await User.findByIdAndUpdate(
+                req.user.id,
+                {password : hashedPassword},
+                {new : true}
+            );
 
             //Send the mail to user that password is updated
-            const userEmail = user.email;
-            const emailBody = "Password was updated for your account"
             try{
-                const mailResponse = await mailSender(userEmail, "Password Updated", emailBody);
+                const mailResponse = await mailSender(
+                    updateUserDetails.email,
+                    passwordUpdated(
+					updateUserDetails.email,
+					`Password updated successfully for ${updateUserDetails.firstName} ${updateUserDetails.lastName}`
+				    )
+                );
                 console.log("Email Sent SuccessFully", mailResponse)
             } catch (error) {
                 console.log("Error in Sending Mail ",error);
+                return res.status(500).json({
+                    success: false,
+                    message: "Error occurred while sending email",
+                    error: error.message,
+                });
             }
-        }
-        else {
-            return res.status(400).json({
-                success:false,
-                message: "Old password is incorrect"
-            })
-        }
+
+            // Return success response
+            return res
+            .status(200)
+            .json({ success: true, message: "Password updated successfully" });
     } catch (error) {
         console.log(error);
         return res.status(400).json({

@@ -124,6 +124,7 @@ exports.showAllCourses = async (req, res) => {
     }
 }
 
+//get Course Details
 exports.getCourseDetails = async (req, res ) => {
     try{
         //fetch course id
