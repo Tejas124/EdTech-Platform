@@ -99,7 +99,7 @@ exports.createCourse = async (req, res) => {
 
 
 //getAllCourse Handler Function
-exports.showAllCourses = async (req, res) => {
+exports.getAllCourses = async (req, res) => {
     try{
         const allCourses = await Course.find({}, {courseName: true,
                                                 price:true,

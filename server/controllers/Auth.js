@@ -9,7 +9,7 @@ const Profile = require("../models/Profile");
 require("dotenv").config();
 
 //sendOTP
-exports.sendOTP = async (req, res) => {
+exports.sendotp = async (req, res) => {
     try {
         //Fetch email from request body
         const { email } = req.body;
@@ -70,7 +70,7 @@ exports.sendOTP = async (req, res) => {
 
 
 //SignUp
-exports.signUp = async (req, res) => {
+exports.signup = async (req, res) => {
     try {
         //data fetch from req body
         const { firstName,
