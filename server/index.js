@@ -1,22 +1,23 @@
 const express = require("express");
 const app = express();
 const db = require("./config/database");
-require("dotenv").config();
+const dotenv = require("dotenv");
+
 const userRoutes = require("./routes/User");
 const profileRoutes = require("./routes/Profile");
 const courseRoutes = require("./routes/Course");
 const paymentRoutes = require("./routes/Payments");
+
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const {cloudinaryConnect } = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");
 
-
-//PORT  
-const PORT = process.env.PORT || 4000;
-
+dotenv.config();
 //database connect
 db.connect();
+//PORT
+const PORT = process.env.PORT || 4000;
 
 //middlewares
 app.use(express.json());

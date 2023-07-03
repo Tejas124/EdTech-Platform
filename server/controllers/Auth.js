@@ -29,7 +29,7 @@ exports.sendotp = async (req, res) => {
             lowerCaseAlphabets: false,
             specialChars: false
         });
-        console.log("Generated OTP ", otp);
+        //console.log("Generated OTP ", otp);
 
         //check unique otp is generated or not
         let result = await OTP.findOne({ otp: otp });
@@ -73,7 +73,8 @@ exports.sendotp = async (req, res) => {
 exports.signup = async (req, res) => {
     try {
         //data fetch from req body
-        const { firstName,
+        const { 
+            firstName,
             lastName,
             email,
             password,
@@ -83,7 +84,7 @@ exports.signup = async (req, res) => {
             otp } = req.body;
 
         //validate
-        if (!email || !password || !firstName || !lastName || !confirmPassword || !contactNumber || !otp) {
+        if (!email || !password || !firstName || !lastName || !confirmPassword || !otp) {
             return res.status(403).json({
                 success: false,
                 message: "All fields are neccessary"
@@ -110,30 +111,37 @@ exports.signup = async (req, res) => {
         //find most recent otp in DB stored for user
         const recentOtp = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1); //Find
         console.log("Recent OTP", recentOtp)
-
+        
         //validate otp
-        if (recentOtp.length == 0) {
+        if (recentOtp.length === 0) {
             return res.status(400).json({
                 success: false,
-                message: "Please Enter OTP"
+                message: "OTP may be expired, Please Enter new OTP"
             })
-        } else if (otp !== recentOtp) {
+        } else if (otp !== recentOtp[0].otp) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid OTP"
             })
         }
-
+        console.log("otp validated");
         //Hash password
         const hashedPaswword = await bcrypt.hash(password, 10);
-
+        console.log("password encrypted")
+        // Create the user
+        let approved = "";
+		approved === "Instructor" ? (approved = false) : (approved = true);
+        console.error();
+        console.log(firstName," ", lastName);
         //entry create in DB
         const profileDetails = await Profile.create({
             gender: null,
             dob: null,
             about: null,
             contactNumber: null
-        })
+        });
+        console.log("Profile details",profileDetails);
+        console.error();
 
         const user = await User.create({
             firstName, 
@@ -141,22 +149,25 @@ exports.signup = async (req, res) => {
             email, 
             contactNumber, 
             password: hashedPaswword, 
-            accountType, 
+            accountType: accountType,
+            approved: approved, 
             additionalDetails: profileDetails._id,
-            image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`
+            image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName}${lastName}`
         })
+        console.log("User created: ", user);
 
 
         //send res
         return res.status(200).json({
             success: true,
-            message: "Sign Up successfull"
+            message: "Sign Up successfully",
+            user
         })
 
     } catch (err) {
         res.status(500).json({
             success: false,
-            message: "User cannot be registered, please try again"
+            message: "User was not registered, please try again"
 
         })
     }
