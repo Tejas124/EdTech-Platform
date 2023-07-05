@@ -39,7 +39,7 @@ exports.auth = async (req, res, next) => {
 
 
 //isStudent
-exports.isStudent = async (res, req, next) => {
+exports.isStudent = async (req, res, next) => {
     try{
         if(req.user.accountType !== "Student"){
             return res.status(401).json({
@@ -47,6 +47,7 @@ exports.isStudent = async (res, req, next) => {
                 message: "This route is protected for Students"
             })
         }
+        next();
     } catch(err) {
         return res.status(500).json({
             success: false,
@@ -57,7 +58,7 @@ exports.isStudent = async (res, req, next) => {
 }
 
 //isInstructor
-exports.isInstructor = async (res, req, next) => {
+exports.isInstructor = async (req, res, next) => {
     try{
         if(req.user.accountType !== "Instructor"){
             return res.status(401).json({
@@ -65,6 +66,7 @@ exports.isInstructor = async (res, req, next) => {
                 message: "This route is protected for Instructor"
             })
         }
+        next();
     } catch(err) {
         return res.status(500).json({
             success: false,
@@ -74,19 +76,21 @@ exports.isInstructor = async (res, req, next) => {
     }
 }
 
-exports.isAdmin = async (res, req, next) => {
-    try{
-        if(req.user.accountType !== "Admin"){
-            return res.status(401).json({
-                success:false,
-                message: "This route is protected for Admin"
-            })
-        }
-    } catch(err) {
-        return res.status(500).json({
-            success: false,
-            message: "User role cannot be verified"
-
-        })
+exports.isAdmin = async (req, res, next) => {
+    try{    
+           
+           if(req.user.accountType !== "Admin") {
+               return res.status(401).json({
+                   success:false,
+                   message:'This is a protected route for Admin only',
+               });
+           }
+           next();
     }
-}
+    catch(error) {
+       return res.status(500).json({
+           success:false,
+           message:'User role cannot be verified, please try again'
+       })
+    }
+   }

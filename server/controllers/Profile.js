@@ -10,17 +10,17 @@ exports.updateProfile = async(req, res) => {
         //get userId
         const id = req.user.id;
         //validation
-        if(!gender || !contactNumber || !id){
-            return res.status(400).json({
-                success: false,
-                message: "Something went wrong, Section was not created"
-            })
-        }
+        // if(!gender || !contactNumber || !id){
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: "Something went wrong, Section was not created"
+        //     })
+        // }
         //find profile 
-        const userDetails = await User.findById({id});
+        const userDetails = await User.findById(id);
         const profileId = userDetails.additionalDetails;
 
-        const profileDetails = await Profile.findById({profileId});
+        const profileDetails = await Profile.findById(profileId);
 
         //update
         profileDetails.dob = dob;
@@ -49,7 +49,7 @@ exports.updateProfile = async(req, res) => {
 exports.deleteAccount = async(req, res) => {
     try{
         //get id
-        const {id} = req.user.id;
+        const id = req.user.id;
         //validation
         const userDetails = await User.findById({_id: id});
         if(!userDetails){
@@ -86,7 +86,7 @@ exports.deleteAccount = async(req, res) => {
 exports.getAllUserDetails = async(req, res) => {
     try {
         //get id
-        const {id} = req.user.id;
+        const id = req.user.id;
 
         //get user details
         const userDetails = await User.findById(id).populate("additionalDetails").exec();

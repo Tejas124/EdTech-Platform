@@ -1,1 +1,6 @@
 /* write your css here */
+html {
+    overflow-x: hidden;
+    box-sizing: border-box;
+
+}

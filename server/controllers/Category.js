@@ -22,7 +22,7 @@ exports.createCategory = async (req, res) => {
             name: name,
             description: description
         })
-        console.log(tagDetails)
+        console.log(categoryDetails)
 
         return res.status(200).json(
             {
@@ -34,7 +34,7 @@ exports.createCategory = async (req, res) => {
         console.log(error);
         return res.status(500).json({
             success: false,
-            message: "Error in creating a Category"
+            message: error.message
         })
     }
 };

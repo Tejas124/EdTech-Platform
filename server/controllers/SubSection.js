@@ -33,7 +33,7 @@ exports.createSubSection = async (req, res) => {
         })
 
         //update section with this SubSectionId
-        const updatedSection = await Section.findByIdAndUpdate({ sectionId },
+        const updatedSection = await Section.findByIdAndUpdate(sectionId,
             {
                 $push: {
                     subSection: subSectionDetails._id
@@ -42,7 +42,7 @@ exports.createSubSection = async (req, res) => {
             { new: true })
             .populate("subSection")
             .exec();
-        console.log("Updated Section: ", updatedSection);
+        //console.log("Updated Section: ", updatedSection);
         //return response
         return res.status(200).json({
             success: true,
@@ -52,8 +52,8 @@ exports.createSubSection = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Something went wrong, Section was not created"
-        })
+            message: error.message
+        });
     }
 }
 
@@ -91,7 +91,7 @@ exports.updateSubSection = async (req, res) => {
 
         return res.json({
             success: true,
-            message: "Section updated successfully",
+            message: "SubSection updated successfully",
         })
     } catch (error) {
         return res.status(500).json({

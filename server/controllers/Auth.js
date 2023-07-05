@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const OTP = require("../models/otp");
-const otpGenerator = require("otp-generator")
+const otpGenerator = require("otp-generator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mailSender = require("../utils/mailSender");
@@ -54,7 +54,8 @@ exports.sendotp = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: "OTP sent successfully"
+            message: "OTP sent successfully",
+            otpBody
         })
 
         //Add validation

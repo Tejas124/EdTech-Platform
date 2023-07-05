@@ -8,12 +8,12 @@ const { uploadImageToCloudinary } = require("../utils/imageUploader");
 exports.createCourse = async (req, res) => {
     try{
         //data fetch
-        const {courseName, courseDescription, whatYouWillLearn, price, Category} = req.body;
+        let {courseName, courseDescription, whatYouWillLearn, price, category} = req.body;
         //thumbnail     
         const thumbnail = req.files.thumbnailImage;
 
         //validation
-        if(!courseName || !courseDescription || !whatYouWillLearn || !price || !Category){
+        if(!courseName || !courseDescription || !whatYouWillLearn || !price || !category){
             return res.status(400).json({
                 success:false,
                 message: "All fields are required"
@@ -23,8 +23,10 @@ exports.createCourse = async (req, res) => {
 
         //Check for instructor details 
         const userId = req.user.id;
-        const instructorDetails = await User.findById(userId);
-        console.log("Instructor Details", instructorDetails)
+        const instructorDetails = await User.findById(userId, {
+			accountType: "Instructor",
+		});
+        //console.log("Instructor Details", instructorDetails)
 
         if(!instructorDetails){
             return res.status(404).json({
@@ -34,7 +36,8 @@ exports.createCourse = async (req, res) => {
         }
 
         //check given Category is valid or not
-        const categoryDetails = await Category.findById({Category});
+        const categoryDetails = await Category.findById(category);
+        //console.log(categoryDetails);
 
         if(!categoryDetails){
             return res.status(404).json({
@@ -53,10 +56,11 @@ exports.createCourse = async (req, res) => {
             whatYouWillLearn : whatYouWillLearn,
             instructor : instructorDetails._id,
             price,
-            Category: categoryDetails._id,
-            thumbnail : thumbnailImage.secure_url
+            category: categoryDetails._id,
+            thumbnail : thumbnailImage.secure_url,
+
         });
-        
+        //console.log("new course ", newCourse);
 
         //Add the new course to User schema of instructor
         await User.findByIdAndUpdate(
@@ -71,9 +75,12 @@ exports.createCourse = async (req, res) => {
         {
             new:true
         })
+        //console.log("updated user ", User);
+
 
         //Update Category Schema
         await Category.findByIdAndUpdate(
+        { _id: category },
         {
             $push: {
                 course: newCourse._id
@@ -82,17 +89,18 @@ exports.createCourse = async (req, res) => {
         {
             new:true
         })
-
+        //console.log("updated category ", Category);
 
         return res.status(200).json({
             success:true,
-            message: "New Course created successfully"
+            message: "New Course created successfully",
+            data: newCourse
         })
 
     } catch (error) {
         return res.status(500).json({
             success:false,
-            message: "Failed to create a course"
+            message: "Failed to create a course",
         })
     }
 }
@@ -141,7 +149,7 @@ exports.getCourseDetails = async (req, res ) => {
                                 }
                               )
                               .populate("category")
-                              .populate("ratingAndReviews")
+                              //.populate("ratingAndReviews")
                               .populate(
                                 {
                                     path: "courseContent",
@@ -155,7 +163,7 @@ exports.getCourseDetails = async (req, res ) => {
         if(!courseDetails) {
             return res.status(400).json({
                 success: false,
-                message: ""
+                message: `Could not find the course with ${courseId}`
             })
         }
         
@@ -163,12 +171,13 @@ exports.getCourseDetails = async (req, res ) => {
         //return response
         return res.status(200).json({
             success: true,
-            message: "Course Details Fetched Successfully"
+            message: "Course Details Fetched Successfully",
+            data:courseDetails,
         })
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Something went wrong, Course Details could not be fetched"
+            message: error.message
         })
     }
 }

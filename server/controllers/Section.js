@@ -21,14 +21,22 @@ exports.createSection = async (req, res) => {
         const newSection = await Section.create({sectionName});
 
         //update course with section objectId
-        const updatedCourse = await Course.findById(courseId,
-                                {
-                                    $push:{
-                                        courseContent: newSection._id
-                                    }
-                                },
-                                {new:true}).populate("Section").exec(); //HW
-                                
+        const updatedCourse = await Course.findByIdAndUpdate(
+            courseId,
+            {
+                $push:{
+                    courseContent: newSection._id
+                }
+            },
+            {new:true}
+            )
+            .populate({
+                path: "courseContent",
+                populate: {
+                    path: "subSection",
+                },
+            }).exec(); //HW
+            
         //return response
         return res.status(200).json({
             success: true,
@@ -79,12 +87,13 @@ exports.deleteSection = async(req, res) => {
         //get Id -- assuming that or sending Id in params
         //const {sectionId} = req.body;
 
-        const {sectionId} = req.params;
+        const { sectionId, courseId } = req.body;
 
         //use findByIdAndDelete
-        await Section.findByIdAndDelete({sectionId});
+        await Section.findByIdAndDelete(sectionId);
         //TODO[Testing] :Do we need to delete the section id in Course schema ?
         //return response
+        await Course.findByIdAndUpdate(courseId);
         return res.status(200).json({
             success: true,
             message: "Section deleted Successfully"
@@ -93,7 +102,7 @@ exports.deleteSection = async(req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Something went wrong, Section was not created"
+            message: error.message
         })
     }
 }
