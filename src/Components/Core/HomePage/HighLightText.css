@@ -1,0 +1,5 @@
+.highlighted_text {
+    /* text-decoration-color: linear-gradient(to bottom right, #1F64FF, #12D8FA, #A6FFCB); */
+    background: -webkit-linear-gradient(to bottom right, #1F64FF, #12D8FA, #A6FFCB);
+    
+}   

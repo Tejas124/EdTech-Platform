@@ -1,17 +1,16 @@
 import React from 'react'
 import CTAButton from './CTAButton'
-import HighLightText from './HighLightText'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { AiOutlineArrowRight } from 'react-icons/ai'
 import { TypeAnimation } from 'react-type-animation'
 
 const CodeBlocks = ({position, heading, subheading, backgroundGradient, codeColor, ctabtn1, ctabtn2, codeblock}) => {
 
   return (
-    <div className={`flex flex-row ${position} my-20 justify-between gap-10`}>
+    <div className={`flex flex-row ${position} my-20 justify-center gap-24`}>
     {/* Section 1 */}
     <div className='w-[50%] flex flex-col gap-8'>
         {heading}
-        <div className='font-semibold text-richblack-200'>
+        <div className=' font-medium text-richblack-300'>
             {subheading}
         </div>
 
@@ -19,7 +18,7 @@ const CodeBlocks = ({position, heading, subheading, backgroundGradient, codeColo
             <CTAButton active={ctabtn1.active} linkto={ctabtn1.linkto}>
               <div className='flex gap-2 items-center'>
                 {ctabtn1.btnText}
-                <AiOutlineArrowLeft/>
+                <AiOutlineArrowRight/>
               </div>
             </CTAButton>
 
@@ -30,9 +29,9 @@ const CodeBlocks = ({position, heading, subheading, backgroundGradient, codeColo
     </div>
 
     {/* Section 2 */}
-    <div className='flex flex-row h-fit w-[100%] py-4 lg:w-[500px]  '>
+    <div className='flex flex-row h-fit w-[100%] py-4 lg:w-[500px]'>
       {/* BG gradient */}
-      <div className='text-center felx-col w-[10%] text-richblack-400 font-inter font-bold'>
+      <div className='text-center flex-col w-[10%] text-richblack-400 font-inter font-bold'>
         <p>1</p>
         <p>2</p>
         <p>3</p>
