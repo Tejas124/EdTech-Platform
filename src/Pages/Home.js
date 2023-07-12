@@ -26,7 +26,7 @@ const Home = () => {
                 </div>
             </Link>
 
-            <div className='text-center text-4xl font-semibold mt-7'>
+            <div className='text-center text-4xl max-md:text-3xl font-semibold mt-7'>
                 Empower Your Future with 
                 <HighLightText text={"Coding Skills"}/>
             </div>
@@ -45,8 +45,8 @@ const Home = () => {
                 </CTAButton>
             </div>
 
-            <div className='  mx-3 my-14'>
-                <video className='shadow-2xl shadow-blue-200 '
+            <div className='mx-3 my-14 shadow-[10px_-5px_50px_-5px] shadow-blue-200'>
+                <video className=' shadow-[20px_20px_0_0] shadow-white '
                 muted
                 loop
                 autoPlay>
@@ -60,7 +60,7 @@ const Home = () => {
                 <CodeBlocks 
                     position={"lg:flex-row"}
                     heading={
-                        <div className='text-4xl font-semibold'>
+                        <div className='text-4xl max-md:text-3xl font-semibold'>
                             Unlock Your 
                             <HighLightText text={"coding potential"}/>
                             {" "}with our online courses
@@ -86,6 +86,7 @@ const Home = () => {
                         }
                     }
                     codeColor={"text-yellow-25"}
+                    backgroundGradient={"bg-gradient-to-bl from-[#8A2BE2] via-[#FFA500] to-[#F8F8FF]"}
                     codeblock={`<!DOCTYPE html>\n<html>\nhead><title>Example</\ntitle><linkrel="stylesheet"href="styles.css">\n/head>\nbody>\nh1><ahref="/">Header</a>\n/h1>\nnav><ahref="one/">One</a><ahref="two/">Two</a><ahref="three/">Three</a>\n/nav>`}
 
                 />
@@ -96,7 +97,7 @@ const Home = () => {
                 <CodeBlocks 
                     position={"lg:flex-row-reverse"}
                     heading={
-                        <div className='text-4xl font-semibold'>
+                        <div className='text-4xl max-md:text-3xl font-semibold'>
                             Start {" "}
                             <HighLightText text={"coding"}/>
                             <br/>
@@ -123,9 +124,9 @@ const Home = () => {
 
                         }
                     }
-                    codeColor={"text-yellow-25"}
+                    codeColor={"text"}
                     codeblock={`<!DOCTYPE html>\n<html>\nhead><title>Example</\ntitle><linkrel="stylesheet"href="styles.css">\n/head>\nbody>\nh1><ahref="/">Header</a>\n/h1>\nnav><ahref="one/">One</a><ahref="two/">Two</a><ahref="three/">Three</a>\n/nav>`}
-
+                    backgroundGradient={"bg-gradient-to-bl from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB]"}
                 />
             </div>
 
@@ -134,10 +135,10 @@ const Home = () => {
 
         {/* Section 2 */}
         <div className=' bg-pure-greys-5 text-richblack-700'>
-            <div className='homepage_bg h-[300px]'>
+            <div className='homepage_bg h-[300px] mx-auto flex'>
                 <div className='w-10/12 max-w-maxContent flex gap-5 justify-center mx-auto'>
 
-                    <div className='flex gap-10 text-white  mt-40'>
+                    <div className='flex gap-10 text-white justify-center items-center'>
                             
                             <CTAButton active={true} linkto={"/signup"} >
                                 <div className='flex gap-5 items-center'>
@@ -159,7 +160,7 @@ const Home = () => {
 
             <div className='w-10/12 mx-auto flex flex-col max-w-maxContent items-center justify-between gap-10'>
                     <div className='flex flex-row gap-10 mt-24 mb-24'>
-                        <div className='text-4xl font-semibold font-inter w-[50%]'>
+                        <div className='text-4xl md:text-3xl font-semibold font-inter w-[50%]'>
                             Get the Skills you need for a 
                             <HighLightText text={"job that is in demand"}/>
                         </div>
@@ -196,7 +197,7 @@ const Home = () => {
             
             <InstructorSection/>
 
-            <h2 className='text-4xl text-center font-semibold mt-10'>Reviews from other learners</h2>
+            <h2 className='text-4xl md:text-3xl text-center font-semibold mt-10'>Reviews from other learners</h2>
 
             {/* Review Slider here */}
 

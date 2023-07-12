@@ -3,13 +3,17 @@ import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+
+import { login } from '../../services/operations/authAPI';
 
 const LoginForm = ({setIsLoggedIn}) => {
 
     const [formData, setFormData] = useState({email: "", password: ""});
     const [showPassword, setShowPassword] = useState(false);
     let navigate = useNavigate();
-
+    const dispatch = useDispatch();
+    const { email, password } = formData
 
     function changeHandler(event){
         setFormData( (prevState) => (
@@ -23,10 +27,9 @@ const LoginForm = ({setIsLoggedIn}) => {
     function submitHandler(event){
         event.preventDefault();
         setIsLoggedIn(true);
+        dispatch(login(email, password, navigate))
         toast.success("Logged In");
-        navigate("/dashboard");
-
-        console.log(formData);
+        // console.log(formData);
     }
 
   return (
@@ -77,7 +80,9 @@ const LoginForm = ({setIsLoggedIn}) => {
             </Link>
         </label>
 
-        <button className='w-full rounded-md p-3 bg-yellow-50 font-medium mt-6 mb-6'>
+        <button
+            type="submit"
+            className='w-full rounded-md p-3 bg-yellow-50 font-medium mt-6 mb-6'>
             SignIn
         </button>
         

@@ -27,21 +27,21 @@ const Navbar = () => {
     const {user} = useSelector( (state) => state.profile);
     const {totalItems} = useSelector( (state) => state.cart);
 
-    // const [subLinks, setSubLinks] = useState([]);
+    const [subLinks, setSubLinks] = useState([]);
 
-    // const fetchSubLinks = async() => {
-    //     try {
-    //         const result = await apiConnector("GET", categories.CATEGORIES_API)
-    //         console.log("Printing Sublinks result: ", result);
-    //         setSubLinks(result.data.data);
-    //     } catch (error) {
-    //         console.log("Cannot fetch category list")
-    //     }
-    // }
+    const fetchSubLinks = async() => {
+        try {
+            const result = await apiConnector("GET", categories.CATEGORIES_API)
+            console.log("Printing Sublinks result: ", result);
+            setSubLinks(result.data.data);
+        } catch (error) {
+            console.log("Cannot fetch category list")
+        }
+    }
 
-    // useEffect( ( ) => {
-    //     // fetchSubLinks();
-    // }, [])
+    useEffect( ( ) => {
+        fetchSubLinks();
+    }, [])
 
     const location = useLocation();
 
@@ -86,7 +86,7 @@ const Navbar = () => {
                                                                 
                                                 </div>
                                                 {
-                                                    subLinks.length ? (
+                                                    subLinks?.length ? (
                                                         
                                                             subLinks.map( (subLink, index) => (
                                                                 <Link to={`${subLink.link}`} key={index}>
@@ -123,7 +123,7 @@ const Navbar = () => {
             {/* Login/Signup/Dashboard */}
             <div className='flex gap-x-3 items-center'>
                 {
-                    user && user?.accountType != "Instructor" && (
+                    user && user?.accountType !== "Instructor" && (
                         <Link to={"/dashboard/cart"} className='relative'>
                         <AiOutlineShoppingCart/>
                         {
@@ -157,7 +157,7 @@ const Navbar = () => {
                     
                 }
                 {
-                    token != null && <ProfileDropDown/>
+                    token !== null && <ProfileDropDown/>
                     
                 }
             </div>

@@ -3,18 +3,26 @@ import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { sendOtp } from "../../services/operations/authAPI"
+import { setSignupData } from "../../slices/authSlice"
+import { ACCOUNT_TYPE } from "../../utils/constants"
+
 
 const SignupForm = ({setIsLoggedIn}) => {
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    // student or instructor
+    const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT)
 
     const [formData, setFormData] = useState({firstName:"", lastName:"", email:"",
                                               createPassword:"", confirmPassword:""});
     
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [accountType, setAccountType] = useState("student");
-
-    let navigate = useNavigate();
-
     
     function changeHandler(event){
         setFormData( (prev) => (
@@ -41,6 +49,21 @@ const SignupForm = ({setIsLoggedIn}) => {
             ...formData,
             accountType
         }
+        // Setting signup data to state
+    // To be used after otp verification
+    dispatch(setSignupData(accountData))
+    // Send OTP to user for verification
+    dispatch(sendOtp(formData.email, navigate))
+
+    // Reset
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    })
+    setAccountType(ACCOUNT_TYPE.STUDENT)
 
         console.log(accountData);
     }
@@ -49,6 +72,9 @@ const SignupForm = ({setIsLoggedIn}) => {
 
   return (
     <div>
+        {/* Tab */}
+        {/* <Tab tabData={tabData} field={accountType} setField={setAccountType} /> */}
+        {/* Form */}
         <div className='bg-richblack-800 max-w-max text-richblack-5 p-1 my-6 rounded-full gap-x-1'>
             <button className={`${accountType === "student" 
             ?

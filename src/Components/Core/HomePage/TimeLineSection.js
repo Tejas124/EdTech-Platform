@@ -38,14 +38,14 @@ const TimeLineSection = () => {
                 {
                     timeLine?.map( (element, index) => {
                         return(
-                            <div className='flex flex-row gap-6' key={index}>
-                                <div className='w-[50px] h-[50px] bg-white flex items-center justify-center rounded-full'>
-                                    <img src={element.Logo} alt='logo'/>
+                            <div className='flex flex-row gap-6 md:gap-4' key={index}>
+                                <div className='w-[50px] h-[50px] md:w-[35px] md:h-[35px] bg-white flex items-center justify-center rounded-full'>
+                                    <img src={element.Logo} alt='logo' className='md:w-[15px] md:h-[24px]'/>
                                 </div>
 
                                 <div>
-                                    <h2 className='font-semibold text-[18px]'>{element.Heading}</h2>
-                                    <p className='text-base '>{element.Description}</p>
+                                    <h2 className='font-semibold text-[18px] md:text-[16px]'>{element.Heading}</h2>
+                                    <p className='text-base md:text-[14px] '>{element.Description}</p>
                                 </div>
 
                             </div>
@@ -60,20 +60,20 @@ const TimeLineSection = () => {
                 <img 
                     src={timelineImage} 
                     alt='timelineImage'
-                    className='shadow-white object-cover '
+                    className='shadow-white object-cover md:w-[300px] md:h-[300px]'
                 />
 
-                <div className='flex justify-center'>
-                    <div className='absolute bg-caribbeangreen-700 flex text-white uppercase p-10  translate-y-[-50%]'>
+                <div className='flex justify-center '>
+                    <div className='absolute bg-caribbeangreen-700 flex md:flex-col md:gap-8 text-white uppercase p-10 md:p-6 translate-y-[-50%] md:w-[200px] md:h-[150px]'>
 
-                        <div className='flex items-center gap-5 border-r border-caribbeangreen-300 px-7'>
-                            <p className='text-3xl font-bold'>10</p>
+                        <div className='flex items-center gap-5 border-r md:border-0 border-caribbeangreen-300 px-7 md:p-0'>
+                            <p className='text-3xl md:text-[28px] font-bold'>10</p>
                             <p className="text-caribbeangreen-300 text-sm">Years <br></br> Experiences</p>
                             
                         </div>
 
-                        <div className='flex gap-5 items-center px-7'>
-                        <p className='text-3xl font-bold'>250</p>
+                        <div className='flex gap-5 items-center px-7 md:p-0'>
+                        <p className='text-3xl md:text-[28px] font-bold'>250</p>
                             <p className="text-caribbeangreen-300 text-sm">Types of <br/> courses</p>
 
                         </div>

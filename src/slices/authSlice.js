@@ -10,10 +10,16 @@ const authSLice = createSlice({
     reducers: {
         setToken(state, value) {
             state.token = value.payload;
-        }
+        },
+        setSignupData(state, value) {
+            state.signupData = value.payload;
+        },
+        setLoading(state, value) {
+        state.loading = value.payload;
+        },
     }
 })
  
-export const {setToken} = authSLice.actions;
+export const {setSignupData, setLoading, setToken} = authSLice.actions;
 export default authSLice.reducer
 

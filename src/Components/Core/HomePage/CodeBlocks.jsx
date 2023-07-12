@@ -6,7 +6,7 @@ import { TypeAnimation } from 'react-type-animation'
 const CodeBlocks = ({position, heading, subheading, backgroundGradient, codeColor, ctabtn1, ctabtn2, codeblock}) => {
 
   return (
-    <div className={`flex flex-row ${position} my-20 justify-center gap-24`}>
+    <div className={`flex flex-row max-md:flex-wrap ${position} my-20 justify-center gap-24`}>
     {/* Section 1 */}
     <div className='w-[50%] flex flex-col gap-8'>
         {heading}
@@ -29,8 +29,9 @@ const CodeBlocks = ({position, heading, subheading, backgroundGradient, codeColo
     </div>
 
     {/* Section 2 */}
-    <div className='flex flex-row h-fit w-[100%] py-4 lg:w-[500px]'>
+    <div className={` flex flex-row h-fit w-[100%] py-4 lg:w-[500px] border border-richblack-700 shadow-inner bg-richblack-800 rounded-sm`}>
       {/* BG gradient */}
+      <div className={`${backgroundGradient} absolute h-[200px] w-[400px] rounded-full blur-3xl opacity-20`}></div>
       <div className='text-center flex-col w-[10%] text-richblack-400 font-inter font-bold'>
         <p>1</p>
         <p>2</p>

@@ -1,9 +1,8 @@
 import React from 'react'
-import "./HighLightText.css";
 
 const HighLightText = ({text}) => {
   return (
-    <span className='highlighted_text font-bold'>
+    <span className='bg-gradient-to-bl from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] font-bold text-transparent bg-clip-text'>
         {" "}
         {text}
     </span>

@@ -29,14 +29,14 @@ const ExploreMore = () => {
 
   return (
     <div className=''>
-        <div className='text-4xl font-semibold font-inter text-center'>
+        <div className='text-4xl max-md:text-3xl font-semibold font-inter text-center'>
             Unlock the 
             <HighLightText text={" Power of Code"}/>
         </div>
 
-        <p className='text-richblack-300 text-center text-base font-medium mt-3'>Learn to Build Anything You Can Imagine</p>
+        <p className='text-richblack-300 text-center text-base font-medium mt-3 mb-3'>Learn to Build Anything You Can Imagine</p>
 
-        <div className='flex gap-1 justify-center rounded-full bg-richblack-800 px-1 py-1 mt-7 mb-7'>
+        <div className='hidden lg:flex gap-5 mt-5 mx-auto w-max bg-richblack-800 text-richblack-200 p-1 rounded-full font-medium drop-shadow-[0_1.5px_rgba(255,255,255,0.25)]'>
             {
                 tabsName.map( (element, index) => {
                     return (
@@ -58,11 +58,11 @@ const ExploreMore = () => {
             }
         </div>
 
-        <div className='lg:h-[150px]'></div>
+        <div className='hidden lg:block lg:h-[300px]'></div>
 
         {/* Course card ka group */}
 
-        <div className='absolute flex gap-10 justify-between w-full '>
+        <div className='lg:absolute gap-10 justify-center lg:gap-0 flex lg:justify-between flex-wrap w-full lg:bottom-[0] lg:left-[50%] lg:translate-x-[-50%] lg:translate-y-[25%] text-black lg:mb-0 mb-7 lg:px-0 px-3'>
             {
                 courses.map( (element, index) => {
                   return (

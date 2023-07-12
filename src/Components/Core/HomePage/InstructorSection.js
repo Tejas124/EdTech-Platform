@@ -19,7 +19,7 @@ const InstructorSection = () => {
 
             <div className='w-[50%] flex flex-col gap-5'>
 
-                <div className='text-4xl font-inter font-semibold w-[50%]'>
+                <div className='text-4xl md:text-3xl font-inter font-semibold w-[50%]'>
                     Become an 
                     <HighLightText text={"Instructor"}/>
                 </div>
