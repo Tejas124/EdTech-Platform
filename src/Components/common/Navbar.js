@@ -5,7 +5,7 @@ import {NavbarLinks} from "../../data/navbar-links"
 import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { AiOutlineShoppingCart } from "react-icons/ai"
-import ProfileDropDown from '../Auth/ProfileDropDown'
+import ProfileDropDown from '../../Components/Core/Auth/ProfileDropDown'
 import { apiConnector } from '../../services/apiconnector'
 import { categories } from '../../services/apis'
 import {RiArrowDropDownLine} from "react-icons/ri"
@@ -88,7 +88,7 @@ const Navbar = () => {
                                                 {
                                                     subLinks?.length ? (
                                                         
-                                                            subLinks.map( (subLink, index) => (
+                                                            subLinks?.map( (subLink, index) => (
                                                                 <Link to={`${subLink.link}`} key={index}>
                                                                 <p>{subLink.title}</p>
 

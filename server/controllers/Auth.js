@@ -185,8 +185,8 @@ exports.signup = async (req, res) => {
 			password,
 			confirmPassword,
 			accountType,
-			contactNumber,
 			otp,
+            contactNumber
 		} = req.body;
 		// Check if All Details are there or not
 		//console.log("BODY:", req.body);

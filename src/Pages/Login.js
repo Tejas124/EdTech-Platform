@@ -1,5 +1,5 @@
 import React from 'react'
-import Template from '../Components/Auth/Template';
+import Template from '../Components/Core/Auth/Template';
 import loginImg from '../assets/Login-Signup/login.png';
 
 const Login = ({setIsLoggedIn}) => {
