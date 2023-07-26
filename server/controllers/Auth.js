@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const OTP = require("../models/otp");
+const OTP = require("../models/OTP");
 const otpGenerator = require("otp-generator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -223,8 +223,9 @@ exports.signup = async (req, res) => {
 
 		// Find the most recent OTP for the email
 		const response = await OTP.findOne({ email });
-		//console.log("the otp in db is = ", response);
-		//console.log("the email in db is = ", email);
+		console.log("the otp in db is = ", response);
+		//console.log("the email in db is = ", email);  
+
 
 		if (response.length === 0) {
 			// OTP not found for the email

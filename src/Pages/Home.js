@@ -18,7 +18,7 @@ const Home = () => {
         <div className='relative max-w-maxContent flex mx-auto flex-col w-10/12 items-center text-white justify-between mt-16'>
 
             <Link to={"/signup"}>
-                <div className='group mx-auto rounded-full py-0.5 bg-richblack-800 font-inter font-medium text-lg text-richblack-200 transition-all duration-200 hover:scale-95  w-fit'>
+                <div className='group mx-auto rounded-full py-0.5 bg-richblack-800 font-inter font-medium text-lg text-richblack-200 transition-all duration-200 hover:scale-95  w-fit mt-5'>
                     <div className='flex items-center gap-2 rounded-full px-8 py-2  group-hover:bg-richblack-900 transition-all duration-200 '>
                         <p>Become an Instructor</p>
                         <AiOutlineArrowRight/>

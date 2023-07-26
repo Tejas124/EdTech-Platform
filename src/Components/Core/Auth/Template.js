@@ -4,7 +4,7 @@ import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
 import {FcGoogle} from 'react-icons/fc'
 
-const Template = ({title, desc1, desc2, setIsLoggedIn, image, formtype}) => {
+const Template = ({title, desc1, desc2, image, formtype}) => {
   return (
     <div className='flex flex-row w-10/12 max-w-[1160px] py-12 gap-x-32 gap-y-0 mx-auto justify-between'>
 
@@ -17,17 +17,17 @@ const Template = ({title, desc1, desc2, setIsLoggedIn, image, formtype}) => {
             </p>
 
             {formtype === "signup" ?
-            (<SignupForm setIsLoggedIn={setIsLoggedIn}/>) :
-            (<LoginForm setIsLoggedIn={setIsLoggedIn}/>)}
+            (<SignupForm/>) :
+            (<LoginForm />)}
 
             <div className='flex items-center'>
                 <div className='h-0 w-[50%] border border-richblack-700'></div>
-                <div className='text-richblack-100 mx-4'>OR</div>
+                <div className='text-richblack-100 mx-4 mt-6'>OR</div>
                 <div className='h-0 w-[50%] border border-richblack-700'></div>
             </div>
 
             <button className='w-full flex justify-center items-center border border-richblack-700 rounded-md
-                                py-[8px] gap-x-2 mt-6'>
+                                py-[8px] gap-x-2 mt-5'>
                 <FcGoogle/>
                 <p className='text-richblack-100 font-medium'>SignIn with Google</p>
             </button>

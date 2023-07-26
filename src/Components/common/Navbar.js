@@ -27,13 +27,13 @@ const Navbar = () => {
     const {user} = useSelector( (state) => state.profile);
     const {totalItems} = useSelector( (state) => state.cart);
 
-    const [subLinks, setSubLinks] = useState([]);
+    const [ssubLinks, setSsubLinks] = useState([]);
 
     const fetchSubLinks = async() => {
         try {
             const result = await apiConnector("GET", categories.CATEGORIES_API)
             console.log("Printing Sublinks result: ", result);
-            setSubLinks(result.data.data);
+            setSsubLinks(result.data.data);
         } catch (error) {
             console.log("Cannot fetch category list")
         }
@@ -46,7 +46,7 @@ const Navbar = () => {
     const location = useLocation();
 
     const matchRoute = (route) => {
-        console.log(route);
+        // console.log(route);
         return matchPath({path:route}, location.pathname);
     }
 
@@ -75,13 +75,15 @@ const Navbar = () => {
                                             <p>{link.title}</p>
                                             <RiArrowDropDownLine className=' text-2xl'/>
 
-                                            <div className='invisible absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[30%]
-                                            flex flex-col rounded-md bg-richblack-5 p-4 text-richblack-900 opacity-0
-                                            group-hover:visible group-hover:opacity-100
-                                            lg:w-[300px]'> 
+                                            <div className='invisible absolute left-[50%]
+                                                    translate-x-[-50%] translate-y-[30%]
+                                                top-[50%]
+                                                flex flex-col rounded-md bg-richblack-5 p-4 text-richblack-900
+                                                opacity-0 transition-all duration-200 group-hover:visible
+                                                group-hover:opacity-100 lg:w-[300px]'> 
 
-                                                <div className='bg-richblack-5 absolute left-[50%] top-0 h-6 w-6 rotate-45 rounded
-                                                                translate-x-[80%] translate-y-[-40%]'> 
+                                                <div className='absolute left-[50%] top-0
+                                                translate-x-[80%] translate-y-[-40%] h-6 w-6 rotate-45 rounded bg-richblack-5'> 
                                                 
                                                                 
                                                 </div>

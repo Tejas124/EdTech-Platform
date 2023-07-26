@@ -6,10 +6,13 @@ import BannerImage3 from "../assets/Images/aboutus3.webp"
 import Quote from '../Components/Core/AboutPage/Quote'
 import FoundingStory from "../assets/Images/FoundingStory.png"
 import StatsComponent from '../Components/Core/AboutPage/StatsComponent'
+import LearningGrid from '../Components/Core/AboutPage/LearningGrid'
+import ContactFromSection from '../Components/Core/AboutPage/ContactFromSection'
+import Footer from "../Components/common/Footer";
 
 const About = () => {
     return (
-        <div className='mx-auto mt-[100px] text-white'>
+        <div className=' mx-auto mt-[100px] text-white'>
             {/* Section 1 */}
             <section>
                 <div>
@@ -96,9 +99,21 @@ const About = () => {
             <StatsComponent/>
 
             {/* section 5 */}
-            <section>
+            <section className='mx-auto flex flex-col items-center justify-between gap-5 mb-[140px]'>
                 <LearningGrid/>
+                <ContactFromSection/>
             </section>
+
+            {/* Section 6 */}
+            <section>
+                <div>
+                    Reviews from other learners
+                    {/* <ReviewSlider/> */}
+                </div>
+            </section>
+
+            {/* Section 7 */}
+            <Footer/>
         </div>
     )
 }
